@@ -3,5 +3,37 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #353535;
+  background-color: #5d5c61;
+  .chat {
+    height: 80%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: #000;
+    margin: auto;
+    justify-content: space-between;
+    .firstRow {
+      display: flex;
+      flex-direction: row;
+      flex-basis: 80%;
+
+      .users {
+        background-color: #557a95;
+        flex-basis: 20%;
+      }
+      .chatWindow {
+        flex-basis: 80%;
+        background-color: #dcdcdc;
+      }
+    }
+
+    .secondRow {
+      flex-basis: 20%;
+      background-color: #b0a295;
+      .messageBox {
+        flex-basis: 100%;
+      }
+    }
+  }
 }

@@ -6,7 +6,7 @@ interface Props {
 }
 
 function ChatWindow(props: Props) {
-  return <div className={"chatWindowContainer"}>chat window</div>;
+  return <div className={"chatWindowContainer"}>chat</div>;
 }
 
 export default ChatWindow;
