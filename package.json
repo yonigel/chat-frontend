@@ -1,11 +1,44 @@
 {
-  "name": "chat-frontend",
+  "name": "empty-project",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "scripts": {
+    "clean": "rm dist/bundle.js",
+    "build-dev": "webpack -d --mode development",
+    "build-prod": "webpack -p --mode production",
+    "start": "webpack-dev-server --hot --mode development"
+  },
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-hot-loader": "^4.12.18",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.4",
+    "@babel/preset-react": "^7.7.0",
+    "babel-loader": "^8.0.6",
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "@hot-loader/react-dom": "^16.11.0+4.12.16",
+    "webpack-dev-server": "^3.9.0",
+    "css-loader": "^3.2.0",
+    "style-loader": "^1.0.0",
+    "typescript": "^3.7.2",
+    "awesome-typescript-loader": "^5.2.1",
+    "sass-loader": "^8.0.0",
+    "node-sass": "^4.13.0",
+    "url-loader": "^2.3.0",
+    "file-loader": "^4.3.0",
+    "lodash-webpack-plugin": "^0.11.5",
+    "prettier": "^1.19.1"
+  }
 }
