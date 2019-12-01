@@ -5,14 +5,17 @@ import ChatWindow from "../chatWindow";
 import Login from "../login";
 import UsersWindow from "../usersWindow";
 import MessageBox from "../messageBox";
+import {
+  initSocket,
+  // onSocketMessageReceived,
+  onSocketUserJoined,
+  onSocketUsetLeft,
+  sendSocketMessage,
+  SocketEmits
+} from "../../services/socket";
+import { MessageActionTypes } from "../../consts/messages";
 
 interface Props {}
-
-enum MessageActionTypes {
-  Add,
-  Delete,
-  Update
-}
 
 export interface ChatMessage {
   username: string;
@@ -28,6 +31,8 @@ for (let i = 0; i < 50; i++) {
   });
 }
 
+const socket = initSocket("test name");
+
 function Chat(props: Props) {
   const [isUserLoggedIn, setUserLoggedStatus] = useState(true); // false
   const [username, setUsername] = useState("yonigel");
@@ -41,10 +46,28 @@ function Chat(props: Props) {
     }
   };
 
-  const [messagesList, setMessageList] = useReducer(
-    messageReducer,
-    fakeMessages
-  );
+  const [messagesList, setMessageList] = useReducer(messageReducer, []);
+
+  const [newMessage, setNewMessage] = useState({ username: "", message: "" });
+
+  React.useEffect(() => {
+    console.log(`useEffect`);
+    socket.on(SocketEmits.ChatMessage, (msg: any) => {
+      // setMessageList({
+      //   type: MessageActionTypes.Add,
+      //   payload: { username: msg.username, message: msg.message }
+      // });
+      setNewMessage(msg);
+    });
+  }, [messagesList]);
+
+  React.useEffect(() => {
+    console.log(`use effect of newMessage`);
+    setMessageList({
+      type: MessageActionTypes.Add,
+      payload: { username: newMessage.username, message: newMessage.message }
+    });
+  }, [newMessage]);
 
   const onUserLogin = (username: string) => {
     setUsername(username);
@@ -52,10 +75,11 @@ function Chat(props: Props) {
   };
 
   const onMessageSend = (message: string) => {
-    setMessageList({
-      type: MessageActionTypes.Add,
-      payload: { username: "user", message }
-    });
+    // setMessageList({
+    //   type: MessageActionTypes.Add,
+    //   payload: { username: "user", message }
+    // });
+    sendSocketMessage(message);
   };
 
   const renderChat = () => {

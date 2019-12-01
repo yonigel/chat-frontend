@@ -18,7 +18,7 @@
     .firstRow {
       display: flex;
       flex-direction: row;
-      height: 80%;
+      height: 90%;
 
       .users {
         background-color: #557a95;
@@ -33,8 +33,11 @@
 
     .secondRow {
       background-color: #b0a295;
-      height: 20%;
+      height: 10%;
+      display: flex;
       .messageBox {
+        width: 100%;
+        margin: auto;
       }
     }
   }

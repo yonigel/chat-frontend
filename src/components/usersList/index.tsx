@@ -1,5 +1,6 @@
 import * as React from "react";
 import "./styles.scss";
+
 export interface User {
   name: string;
 }
