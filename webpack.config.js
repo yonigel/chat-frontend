@@ -11,6 +11,10 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"]
+      },
+      {
         test: /\.(js|jsx)$/,
         use: "babel-loader",
         exclude: /node_modules/
@@ -27,21 +31,6 @@ const config = {
       {
         test: /\.scss$/,
         use: ["style-loader", "css-loader", "sass-loader"]
-      },
-      {
-        test: /\.png$/,
-        use: [
-          {
-            loader: "url-loader",
-            options: {
-              mimetype: "image/png"
-            }
-          }
-        ]
-      },
-      {
-        test: /\.svg$/,
-        use: "file-loader"
       }
     ]
   },

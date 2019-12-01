@@ -13,11 +13,12 @@
     background-color: #000;
     margin: auto;
     justify-content: space-between;
+    overflow: hidden;
+    border-radius: 15px;
     .firstRow {
       display: flex;
       flex-direction: row;
       height: 80%;
-      // flex-basis: 80%;
 
       .users {
         background-color: #557a95;

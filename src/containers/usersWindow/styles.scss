@@ -1,9 +1,14 @@
 .usersWindowContainer {
+  max-height: 100%;
+  overflow: scroll;
+
   .usersTitle {
   }
   .usersList {
     ul {
       list-style-type: none;
+      li {
+      }
     }
   }
 }

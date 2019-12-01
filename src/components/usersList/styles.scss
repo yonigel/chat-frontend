@@ -1,0 +1,33 @@
+.usersListContainer {
+  .userRow {
+    padding: 10px;
+
+    &:nth-child(even) {
+      background-color: #5c85a2;
+    }
+
+    &:nth-child(odd) {
+      background-color: #496980;
+    }
+
+    display: flex;
+    line-height: 50px;
+
+    .userAvatar {
+      border-radius: 50%;
+      height: 50px;
+      width: 50px;
+      background-color: #000000c2;
+      display: inline-block;
+      background-image: url("../../assets/avatars/avatar1.png");
+      background-repeat: no-repeat;
+      background-size: auto;
+    }
+    .username {
+      display: inline-block;
+      font-size: 1.1em;
+      margin-left: 10px;
+      font-weight: bold;
+    }
+  }
+}

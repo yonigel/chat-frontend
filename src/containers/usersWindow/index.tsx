@@ -1,24 +1,31 @@
 import * as React from "react";
 import "./styles.scss";
+import UsersList, { User } from "../../components/usersList";
 
 interface Props {}
 
-const usersList = ["first", "second", "avigdor", "munimuni"];
+const usersList: User[] = [
+  { name: "muni" },
+  { name: "lala" },
+  { name: "koko" },
+  { name: "po" },
+  { name: "muni" },
+  { name: "lala" },
+  { name: "koko" },
+  { name: "po" },
+  { name: "muni" },
+  { name: "lala" },
+  { name: "koko" },
+  { name: "po" }
+];
 
 function UsersWindow(props: Props) {
-  const renderUsersList = () => {
-    return (
-      <ul>
-        {usersList.map((user: string) => {
-          return <li>{user}</li>;
-        })}
-      </ul>
-    );
-  };
   return (
     <div className={"usersWindowContainer"}>
       <div className={"usersTitle"}>Who is here?</div>
-      <div className={"usersList"}>{renderUsersList()}</div>
+      <div className={"usersList"}>
+        <UsersList usersList={usersList} />
+      </div>
     </div>
   );
 }

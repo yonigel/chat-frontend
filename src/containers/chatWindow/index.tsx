@@ -1,6 +1,7 @@
 import * as React from "react";
 import "./styles.scss";
 import { ChatMessage } from "../chat";
+import { RefObject, useEffect } from "react";
 
 interface Props {
   username: string;
@@ -9,6 +10,10 @@ interface Props {
 
 function ChatWindow(props: Props) {
   const { username, messageList } = props;
+  const lastRowRef: RefObject<any> = React.createRef();
+  useEffect(() => {
+    lastRowRef.current.scrollIntoView();
+  });
   return (
     <div className={"chatWindowContainer"}>
       <div className={"chatMessages"}>
@@ -20,6 +25,7 @@ function ChatWindow(props: Props) {
             </div>
           );
         })}
+        <div className={"singleChatRow"} ref={lastRowRef} />
       </div>
     </div>
   );
