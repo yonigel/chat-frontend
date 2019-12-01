@@ -1,0 +1,11 @@
+.messageBoxContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  .textInputContainer {
+    flex-basis: 80%;
+  }
+  .messageSendButtonContainer {
+    flex-basis: 20%;
+  }
+}

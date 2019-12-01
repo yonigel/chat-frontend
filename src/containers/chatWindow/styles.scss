@@ -1,2 +1,24 @@
 .chatWindowContainer {
+  height: 100%;
+  .chatMessages {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: scroll;
+    padding: 20px;
+    .singleChatRow {
+      //   display: flex;
+      .username {
+        display: inline-block;
+        font-size: 0.8em;
+        font-weight: bolder;
+      }
+      .message {
+        display: inline-block;
+        font-size: 0.8em;
+        margin-left: 10px;
+      }
+    }
+  }
 }

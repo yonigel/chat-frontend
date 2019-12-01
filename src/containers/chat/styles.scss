@@ -16,23 +16,24 @@
     .firstRow {
       display: flex;
       flex-direction: row;
-      flex-basis: 80%;
+      height: 80%;
+      // flex-basis: 80%;
 
       .users {
         background-color: #557a95;
-        flex-basis: 20%;
+        width: 20%;
+        padding: 10px;
       }
       .chatWindow {
-        flex-basis: 80%;
+        width: 80%;
         background-color: #dcdcdc;
       }
     }
 
     .secondRow {
-      flex-basis: 20%;
       background-color: #b0a295;
+      height: 20%;
       .messageBox {
-        flex-basis: 100%;
       }
     }
   }
