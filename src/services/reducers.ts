@@ -9,7 +9,7 @@ interface MessageAction {
 
 interface UserAction {
   type: UsersActionTypes;
-  payload: User;
+  payload: any;
 }
 
 export const messageReducer = (
@@ -38,6 +38,14 @@ export const usersReducer = (usersList: User[], userAction: UserAction) => {
         return [...usersList];
       }
       return [...usersList, userAction.payload];
+    case UsersActionTypes.Remove:
+      if (userAction.payload === undefined) {
+        return [...usersList];
+      }
+      const newUsersList = usersList.filter(
+        (user: User) => user.id !== userAction.payload.id
+      );
+      return [...newUsersList];
     default:
       return [...usersList];
   }

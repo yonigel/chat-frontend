@@ -13,6 +13,7 @@ import {
 import { MessageActionTypes, UsersActionTypes } from "../../consts/actionTypes";
 import { messageReducer, usersReducer } from "../../services/reducers";
 import { User } from "../../components/usersList";
+import { BOT_NAME } from "../../consts/chat";
 
 export interface ChatMessage {
   username: string;
@@ -26,7 +27,8 @@ function Chat() {
   const [messagesList, setMessageList] = useReducer(messageReducer, []);
   const [newMessage, setNewMessage] = useState({ username: "", message: "" });
   const [usersList, setUsersList] = useReducer(usersReducer, []);
-  const [newUser, setNewUser] = useState({ name: "" });
+  const [newUser, setNewUser] = useState({ name: "", id: -1 });
+  const [removedUser, serRemovedUser] = useState({ id: -1 });
 
   useEffect(() => {
     socket = initSocket(username);
@@ -39,10 +41,13 @@ function Chat() {
     socket.on(SocketEmits.ChatMessage, (msg: any) => {
       setNewMessage(msg);
     });
-    socket.on(SocketEmits.UserJoined, (username: string) => {
-      const user: any = { name: username };
+    socket.on(SocketEmits.UserJoined, (user: User) => {
       setNewUser(user);
-      console.log(`user ${username} joined`);
+      console.log(`user ${user.id} joined`);
+    });
+    socket.on(SocketEmits.UserLeft, (userId: number) => {
+      console.log(`user id ${userId} has left`);
+      serRemovedUser({ id: userId });
     });
   }, []);
 
@@ -54,12 +59,23 @@ function Chat() {
   }, [newMessage]);
 
   useEffect(() => {
+    setUsersList({
+      type: UsersActionTypes.Remove,
+      payload: removedUser
+    });
+  }, [removedUser]);
+
+  useEffect(() => {
     if (newUser.name === "" || newUser.name === username) {
       return;
     }
     setUsersList({
       type: UsersActionTypes.Add,
-      payload: newUser
+      payload: { name: newUser.name, id: newUser.id }
+    });
+    setNewMessage({
+      username: BOT_NAME,
+      message: `User ${newUser.name} has joined!`
     });
   }, [newUser]);
 

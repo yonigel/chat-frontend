@@ -9,6 +9,9 @@
     padding: 20px;
     .singleChatRow {
       //   display: flex;
+      &:nth-child(even) {
+        background-color: #d2d2d2;
+      }
       .username {
         display: inline-block;
         font-size: 0.8em;

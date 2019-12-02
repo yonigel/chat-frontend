@@ -3,6 +3,7 @@ import "./styles.scss";
 
 export interface User {
   name: string;
+  id: any;
 }
 
 interface Props {
