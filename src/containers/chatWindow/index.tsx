@@ -2,6 +2,7 @@ import * as React from "react";
 import "./styles.scss";
 import { ChatMessage } from "../chat";
 import { RefObject, useEffect } from "react";
+import { useStateValue } from "../../state";
 
 interface Props {
   username: string;
@@ -9,11 +10,16 @@ interface Props {
 }
 
 function ChatWindow(props: Props) {
+  const [{ theme }, dispatch] = useStateValue();
   const { username, messageList } = props;
   const lastRowRef: RefObject<any> = React.createRef();
   useEffect(() => {
     lastRowRef.current.scrollIntoView();
   });
+
+  useEffect(() => {
+    console.log(`I am chat window, and theme just changed to`, theme);
+  }, theme);
 
   const getUsernameFormat = (messageUsername: string) => {
     const isMyUsername = username === messageUsername;

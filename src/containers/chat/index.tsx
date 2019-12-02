@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useStateValue } from "../../state";
 import { useState, useReducer, useEffect } from "react";
 import "./styles.scss";
 import ChatWindow from "../chatWindow";
@@ -30,11 +31,18 @@ function Chat() {
   const [newUser, setNewUser] = useState({ name: "", id: -1 });
   const [removedUser, serRemovedUser] = useState({ id: -1 });
 
+  const [{ theme }, dispatch] = useStateValue();
+
   useEffect(() => {
     socket = initSocket(username);
   }, [username]);
 
   useEffect(() => {
+    dispatch({
+      type: "changeTheme",
+      newTheme: { primary: "blue" }
+    });
+
     if (socket === undefined) {
       return;
     }
@@ -52,6 +60,10 @@ function Chat() {
   }, []);
 
   useEffect(() => {
+    dispatch({
+      type: "changeTheme",
+      newTheme: { primary: "yellow" }
+    });
     setMessageList({
       type: MessageActionTypes.Add,
       payload: { username: newMessage.username, message: newMessage.message }
