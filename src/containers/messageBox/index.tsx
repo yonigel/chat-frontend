@@ -22,6 +22,13 @@ function MessageBox(props: Props) {
     setMessageText(text);
   };
 
+  const onTextInputKeyDown = (e: any) => {
+    if (e.key === "Enter") {
+      onMessageSend(messageText);
+      setMessageText("");
+    }
+  };
+
   return (
     <div className={"messageBoxContainer"}>
       <div className={"textInputContainer"}>
@@ -30,6 +37,7 @@ function MessageBox(props: Props) {
           placeholder={"I am waiting..."}
           onChange={onTextInputChange}
           value={messageText}
+          onKeyDown={onTextInputKeyDown}
         />
       </div>
       <div className={"messageSendButtonContainer"}>
