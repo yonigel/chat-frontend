@@ -41,12 +41,19 @@ function Chat() {
     }
     socket.on(SocketEmits.ChatMessage, (msg: any) => {
       dispatch({
-        type: MessageActionTypes.Add,
+        type: MessageActionTypes.ADD_MESSAGE,
         payload: msg
       });
     });
     socket.on(SocketEmits.UserJoined, (user: User) => {
-      setNewUser(user);
+      if (user.name === "") {
+        return;
+      }
+      dispatch({
+        type: UsersActionTypes.ADD_USER,
+        payload: user
+      });
+      // setNewUser(user);
       console.log(`user ${user.id} joined`);
     });
     socket.on(SocketEmits.UserLeft, (userId: number) => {
@@ -57,7 +64,7 @@ function Chat() {
 
   useEffect(() => {
     setUsersList({
-      type: UsersActionTypes.Remove,
+      type: UsersActionTypes.DELETE_USER,
       payload: removedUser
     });
   }, [removedUser]);
@@ -66,12 +73,12 @@ function Chat() {
     if (newUser.name === "" || newUser.name === username) {
       return;
     }
-    setUsersList({
-      type: UsersActionTypes.Add,
-      payload: { name: newUser.name, id: newUser.id }
-    });
+    // setUsersList({
+    //   type: UsersActionTypes.Add,
+    //   payload: { name: newUser.name, id: newUser.id }
+    // });
     dispatch({
-      type: MessageActionTypes.Add,
+      type: MessageActionTypes.ADD_MESSAGE,
       payload: {
         username: BOT_NAME,
         message: `User ${newUser.name} has joined!`
@@ -93,7 +100,7 @@ function Chat() {
       <div className={"chat"}>
         <div className={"firstRow"}>
           <div className={"users"}>
-            <UsersWindow usersList={usersList} />
+            <UsersWindow />
           </div>
           <div className={"chatWindow"}>
             <ChatWindow username={username} />

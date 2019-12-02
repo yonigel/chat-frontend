@@ -9,12 +9,9 @@ export interface MainState {
   chatMessages: ChatMessage[];
 }
 
-export const mainReducer = (
-  { connectedUsers, chatMessages }: MainState,
-  action: any
-) => {
+export const mainReducer = (initialState: MainState, action: any) => {
   return {
-    connectedUsers: usersReducer(connectedUsers, action),
-    chatMessages: messageReducer(chatMessages, action)
+    connectedUsers: usersReducer(initialState.connectedUsers, action),
+    chatMessages: messageReducer(initialState.chatMessages, action)
   };
 };

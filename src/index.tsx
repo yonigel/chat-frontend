@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.scss";
 import { mainReducer, MainState } from "./reducers";
 
-const initialState: MainState = {
+export const initialState: MainState = {
   connectedUsers: [],
   chatMessages: []
 };

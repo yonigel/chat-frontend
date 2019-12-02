@@ -2,13 +2,14 @@ import { UsersActionTypes } from "../actions";
 import { User } from "../components/usersList";
 
 export const usersReducer = (usersList: User[], action: any) => {
+  console.log("usersReducer");
   switch (action.type) {
-    case UsersActionTypes.Add:
+    case UsersActionTypes.ADD_USER:
       if (action.payload === undefined) {
         return [...usersList];
       }
       return [...usersList, action.payload];
-    case UsersActionTypes.Remove:
+    case UsersActionTypes.DELETE_USER:
       if (action.payload === undefined) {
         return [...usersList];
       }

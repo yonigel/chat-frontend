@@ -5,8 +5,9 @@ export const messageReducer = (
   messagesList: ChatMessage[],
   messageAction: any
 ) => {
+  console.log("messageReducer");
   switch (messageAction.type) {
-    case MessageActionTypes.Add:
+    case MessageActionTypes.ADD_MESSAGE:
       if (
         messageAction.payload === undefined ||
         messageAction.payload.message === ""
