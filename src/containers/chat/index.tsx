@@ -11,8 +11,8 @@ import {
   sendSocketMessage,
   SocketEmits
 } from "../../services/socket";
-import { MessageActionTypes, UsersActionTypes } from "../../consts/actionTypes";
-import { messageReducer, usersReducer } from "../../services/reducers";
+import { MessageActionTypes, UsersActionTypes } from "../../actions";
+import { usersReducer } from "../../reducers/usersReducer";
 import { User } from "../../components/usersList";
 import { BOT_NAME } from "../../consts/chat";
 
@@ -25,29 +25,25 @@ function Chat() {
   let socket: any;
   const [isUserLoggedIn, setUserLoggedStatus] = useState(false);
   const [username, setUsername] = useState("");
-  const [messagesList, setMessageList] = useReducer(messageReducer, []);
-  const [newMessage, setNewMessage] = useState({ username: "", message: "" });
   const [usersList, setUsersList] = useReducer(usersReducer, []);
   const [newUser, setNewUser] = useState({ name: "", id: -1 });
   const [removedUser, serRemovedUser] = useState({ id: -1 });
 
-  const [{ theme }, dispatch] = useStateValue();
+  const [{}, dispatch] = useStateValue();
 
   useEffect(() => {
     socket = initSocket(username);
   }, [username]);
 
   useEffect(() => {
-    dispatch({
-      type: "changeTheme",
-      newTheme: { primary: "blue" }
-    });
-
     if (socket === undefined) {
       return;
     }
     socket.on(SocketEmits.ChatMessage, (msg: any) => {
-      setNewMessage(msg);
+      dispatch({
+        type: MessageActionTypes.Add,
+        payload: msg
+      });
     });
     socket.on(SocketEmits.UserJoined, (user: User) => {
       setNewUser(user);
@@ -58,17 +54,6 @@ function Chat() {
       serRemovedUser({ id: userId });
     });
   }, []);
-
-  useEffect(() => {
-    dispatch({
-      type: "changeTheme",
-      newTheme: { primary: "yellow" }
-    });
-    setMessageList({
-      type: MessageActionTypes.Add,
-      payload: { username: newMessage.username, message: newMessage.message }
-    });
-  }, [newMessage]);
 
   useEffect(() => {
     setUsersList({
@@ -85,9 +70,12 @@ function Chat() {
       type: UsersActionTypes.Add,
       payload: { name: newUser.name, id: newUser.id }
     });
-    setNewMessage({
-      username: BOT_NAME,
-      message: `User ${newUser.name} has joined!`
+    dispatch({
+      type: MessageActionTypes.Add,
+      payload: {
+        username: BOT_NAME,
+        message: `User ${newUser.name} has joined!`
+      }
     });
   }, [newUser]);
 
@@ -108,7 +96,7 @@ function Chat() {
             <UsersWindow usersList={usersList} />
           </div>
           <div className={"chatWindow"}>
-            <ChatWindow username={username} messageList={messagesList} />
+            <ChatWindow username={username} />
           </div>
         </div>
         <div className={"secondRow"}>

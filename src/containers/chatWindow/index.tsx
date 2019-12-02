@@ -6,20 +6,16 @@ import { useStateValue } from "../../state";
 
 interface Props {
   username: string;
-  messageList: ChatMessage[];
 }
 
 function ChatWindow(props: Props) {
-  const [{ theme }, dispatch] = useStateValue();
-  const { username, messageList } = props;
+  const [{ chatMessages }, dispatch] = useStateValue();
+  console.log(chatMessages);
+  const { username } = props;
   const lastRowRef: RefObject<any> = React.createRef();
   useEffect(() => {
     lastRowRef.current.scrollIntoView();
   });
-
-  useEffect(() => {
-    console.log(`I am chat window, and theme just changed to`, theme);
-  }, theme);
 
   const getUsernameFormat = (messageUsername: string) => {
     const isMyUsername = username === messageUsername;
@@ -31,7 +27,7 @@ function ChatWindow(props: Props) {
   return (
     <div className={"chatWindowContainer"}>
       <div className={"chatMessages"}>
-        {messageList.map((message: ChatMessage, index: number) => {
+        {chatMessages.map((message: ChatMessage, index: number) => {
           return (
             <div key={index} className={"singleChatRow"}>
               <div className={"username"}>
