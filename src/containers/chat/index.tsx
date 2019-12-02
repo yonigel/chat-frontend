@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
 import "./styles.scss";
 import ChatWindow from "../chatWindow";
 import Login from "../login";
@@ -7,62 +7,38 @@ import UsersWindow from "../usersWindow";
 import MessageBox from "../messageBox";
 import {
   initSocket,
-  // onSocketMessageReceived,
-  onSocketUserJoined,
-  onSocketUsetLeft,
   sendSocketMessage,
   SocketEmits
 } from "../../services/socket";
 import { MessageActionTypes } from "../../consts/messages";
-
-interface Props {}
+import { messageReducer } from "../../services/messages";
 
 export interface ChatMessage {
   username: string;
   message: string;
 }
 
-const fakeMessages: ChatMessage[] = [];
-
-for (let i = 0; i < 50; i++) {
-  fakeMessages.push({
-    username: `fake ${i}`,
-    message: `fake message number ${i}`
-  });
-}
-
-const socket = initSocket("test name");
-
-function Chat(props: Props) {
-  const [isUserLoggedIn, setUserLoggedStatus] = useState(true); // false
-  const [username, setUsername] = useState("yonigel");
-
-  const messageReducer = (messagesList: ChatMessage[], messageAction: any) => {
-    switch (messageAction.type) {
-      case MessageActionTypes.Add:
-        return [...messagesList, messageAction.payload];
-      default:
-        return [...messagesList];
-    }
-  };
-
+function Chat() {
+  let socket: any;
+  const [isUserLoggedIn, setUserLoggedStatus] = useState(false);
+  const [username, setUsername] = useState("");
   const [messagesList, setMessageList] = useReducer(messageReducer, []);
-
   const [newMessage, setNewMessage] = useState({ username: "", message: "" });
 
-  React.useEffect(() => {
-    console.log(`useEffect`);
+  useEffect(() => {
+    socket = initSocket(username);
+  }, [username]);
+
+  useEffect(() => {
+    if (socket === undefined) {
+      return;
+    }
     socket.on(SocketEmits.ChatMessage, (msg: any) => {
-      // setMessageList({
-      //   type: MessageActionTypes.Add,
-      //   payload: { username: msg.username, message: msg.message }
-      // });
       setNewMessage(msg);
     });
   }, [messagesList]);
 
-  React.useEffect(() => {
-    console.log(`use effect of newMessage`);
+  useEffect(() => {
     setMessageList({
       type: MessageActionTypes.Add,
       payload: { username: newMessage.username, message: newMessage.message }
@@ -75,10 +51,6 @@ function Chat(props: Props) {
   };
 
   const onMessageSend = (message: string) => {
-    // setMessageList({
-    //   type: MessageActionTypes.Add,
-    //   payload: { username: "user", message }
-    // });
     sendSocketMessage(message);
   };
 

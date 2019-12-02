@@ -1,4 +1,5 @@
 import * as socketIOClient from "socket.io-client";
+import { ChatMessage } from "../containers/chat";
 
 let socket: any;
 
@@ -12,21 +13,19 @@ export function initSocket(username: string) {
   socket = socketIOClient("http://localhost:5000");
   socket.on("connect", () => {
     socket.emit("username", username);
-    console.log("i am connected!", username);
   });
 
   return socket;
-
   //   socket.on(SocketEmits.ChatMessage, (msg: string) => {
   //     onMessageCallback(msg);
   //   });
 }
 
-// export function onSocketMessageReceived(callback: Function) {
-//   socket.on(SocketEmits.ChatMessage, (msg: string) => {
-//     callback(msg);
-//   });
-// }
+export function onSocketMessageReceived(callback: Function) {
+  socket.on(SocketEmits.ChatMessage, (msg: ChatMessage) => {
+    callback(msg);
+  });
+}
 
 export function onSocketUserJoined(callback: Function) {
   socket.on(SocketEmits.UserJoined, () => {
