@@ -25,8 +25,6 @@ function Chat() {
   let socket: any;
   const [isUserLoggedIn, setUserLoggedStatus] = useState(false);
   const [username, setUsername] = useState("");
-  const [usersList, setUsersList] = useReducer(usersReducer, []);
-  const [newUser, setNewUser] = useState({ name: "", id: -1 });
   const [removedUser, serRemovedUser] = useState({ id: -1 });
 
   const [{}, dispatch] = useStateValue();
@@ -53,38 +51,32 @@ function Chat() {
         type: UsersActionTypes.ADD_USER,
         payload: user
       });
-      // setNewUser(user);
-      console.log(`user ${user.id} joined`);
+      dispatch({
+        type: MessageActionTypes.ADD_MESSAGE,
+        payload: {
+          username: BOT_NAME,
+          message: `User ${user.name} has joined!`
+        }
+      });
     });
-    socket.on(SocketEmits.UserLeft, (userId: number) => {
-      console.log(`user id ${userId} has left`);
-      serRemovedUser({ id: userId });
+    socket.on(SocketEmits.UserLeft, (user: User) => {
+      dispatch({
+        type: UsersActionTypes.DELETE_USER,
+        payload: user.id
+      });
+
+      if (user.name === "") {
+        return;
+      }
+      dispatch({
+        type: MessageActionTypes.ADD_MESSAGE,
+        payload: {
+          username: BOT_NAME,
+          message: `User ${user.name} has just left the room :(`
+        }
+      });
     });
   }, []);
-
-  useEffect(() => {
-    setUsersList({
-      type: UsersActionTypes.DELETE_USER,
-      payload: removedUser
-    });
-  }, [removedUser]);
-
-  useEffect(() => {
-    if (newUser.name === "" || newUser.name === username) {
-      return;
-    }
-    // setUsersList({
-    //   type: UsersActionTypes.Add,
-    //   payload: { name: newUser.name, id: newUser.id }
-    // });
-    dispatch({
-      type: MessageActionTypes.ADD_MESSAGE,
-      payload: {
-        username: BOT_NAME,
-        message: `User ${newUser.name} has joined!`
-      }
-    });
-  }, [newUser]);
 
   const onUserLogin = (username: string) => {
     setUsername(username);

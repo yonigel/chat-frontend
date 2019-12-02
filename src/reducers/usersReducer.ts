@@ -14,7 +14,7 @@ export const usersReducer = (usersList: User[], action: any) => {
         return [...usersList];
       }
       const newUsersList = usersList.filter(
-        (user: User) => user.id !== action.payload.id
+        (user: User) => user.id !== action.payload
       );
       return [...newUsersList];
     default:
