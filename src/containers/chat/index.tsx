@@ -24,9 +24,71 @@ function Chat() {
   let socket: any;
   const [isUserLoggedIn, setUserLoggedStatus] = useState(false);
   const [username, setUsername] = useState("");
-  const [removedUser, serRemovedUser] = useState({ id: -1 });
 
   const [{}, dispatch] = useStateValue();
+
+  const onUserLeft = (user: User) => {
+    if (user.name === "" || user.name === undefined) {
+      return;
+    }
+    dispatch({
+      type: UsersActionTypes.DELETE_USER,
+      payload: user.id
+    });
+    dispatch({
+      type: MessageActionTypes.ADD_MESSAGE,
+      payload: {
+        username: BOT_NAME,
+        message: `User ${user.name} has just left the room :(`
+      }
+    });
+  };
+
+  const onUserJoin = (user: User) => {
+    if (user.name === "" || user.name === undefined) {
+      return;
+    }
+    let message = "";
+    if (user.name === username) {
+      message = `Welcome to the chat, ${username}!`;
+    } else {
+      message = `User ${user.name} has joined!`;
+    }
+    dispatch({
+      type: UsersActionTypes.ADD_USER,
+      payload: user
+    });
+    dispatch({
+      type: MessageActionTypes.ADD_MESSAGE,
+      payload: {
+        username: BOT_NAME,
+        message
+      }
+    });
+  };
+
+  const onGotUsersList = (usersList: User[]) => {
+    if (usersList.length === 0) {
+      return;
+    }
+    dispatch({
+      type: UsersActionTypes.SET_USERS_LIST,
+      payload: usersList
+    });
+  };
+
+  const onBotMessage = (message: string) => {
+    if (message === "" || message === undefined) {
+      return;
+    }
+    dispatch({
+      type: MessageActionTypes.ADD_MESSAGE,
+      payload: {
+        username: BOT_NAME,
+        message
+      }
+    });
+  };
 
   useEffect(() => {
     socket = initSocket(username);
@@ -43,47 +105,16 @@ function Chat() {
       });
     });
     socket.on(SocketEmits.GotUserList, (usersList: User[]) => {
-      console.log(`got users`, usersList);
-      if (usersList.length === 0) {
-        return;
-      }
-
-      dispatch({
-        type: UsersActionTypes.SET_USERS_LIST,
-        payload: usersList
-      });
+      onGotUsersList(usersList);
     });
     socket.on(SocketEmits.UserJoined, (user: User) => {
-      if (user.name === "") {
-        return;
-      }
-      dispatch({
-        type: UsersActionTypes.ADD_USER,
-        payload: user
-      });
-      dispatch({
-        type: MessageActionTypes.ADD_MESSAGE,
-        payload: {
-          username: BOT_NAME,
-          message: `User ${user.name} has joined!`
-        }
-      });
+      onUserJoin(user);
     });
     socket.on(SocketEmits.UserLeft, (user: User) => {
-      if (user.name === "") {
-        return;
-      }
-      dispatch({
-        type: UsersActionTypes.DELETE_USER,
-        payload: user.id
-      });
-      dispatch({
-        type: MessageActionTypes.ADD_MESSAGE,
-        payload: {
-          username: BOT_NAME,
-          message: `User ${user.name} has just left the room :(`
-        }
-      });
+      onUserLeft(user);
+    });
+    socket.on(SocketEmits.BotMessage, (message: string) => {
+      onBotMessage(message);
     });
   }, []);
 
