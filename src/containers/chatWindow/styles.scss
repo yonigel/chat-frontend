@@ -2,13 +2,12 @@
   height: 100%;
   .chatMessages {
     height: 100%;
-    // display: flex;
     flex-direction: column;
     justify-content: flex-end;
     overflow: scroll;
     padding: 20px;
     .singleChatRow {
-      //   display: flex;
+      padding: 8px;
       &:nth-child(even) {
         background-color: #d2d2d2;
       }

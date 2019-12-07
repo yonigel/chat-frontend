@@ -35,36 +35,36 @@ function Chat() {
       type: UsersActionTypes.DELETE_USER,
       payload: user.id
     });
-    dispatch({
-      type: MessageActionTypes.ADD_MESSAGE,
-      payload: {
-        username: BOT_NAME,
-        message: `User ${user.name} has just left the room :(`
-      }
-    });
+    // dispatch({
+    //   type: MessageActionTypes.ADD_MESSAGE,
+    //   payload: {
+    //     username: BOT_NAME,
+    //     message: `User ${user.name} has just left the room :(`
+    //   }
+    // });
   };
 
   const onUserJoin = (user: User) => {
     if (user.name === "" || user.name === undefined) {
       return;
     }
-    let message = "";
-    if (user.name === username) {
-      message = `Welcome to the chat, ${username}!`;
-    } else {
-      message = `User ${user.name} has joined!`;
-    }
+    // let message = "";
+    // if (user.name === username) {
+    //   message = `Welcome to the chat, ${username}!`;
+    // } else {
+    //   message = `User ${user.name} has joined!`;
+    // }
     dispatch({
       type: UsersActionTypes.ADD_USER,
       payload: user
     });
-    dispatch({
-      type: MessageActionTypes.ADD_MESSAGE,
-      payload: {
-        username: BOT_NAME,
-        message
-      }
-    });
+    // dispatch({
+    //   type: MessageActionTypes.ADD_MESSAGE,
+    //   payload: {
+    //     username: BOT_NAME,
+    //     message
+    //   }
+    // });
   };
 
   const onGotUsersList = (usersList: User[]) => {
