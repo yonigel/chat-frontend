@@ -12,7 +12,6 @@ import {
   SocketEmits
 } from "../../services/socket";
 import { MessageActionTypes, UsersActionTypes } from "../../actions";
-import { usersReducer } from "../../reducers/usersReducer";
 import { User } from "../../components/usersList";
 import { BOT_NAME } from "../../consts/chat";
 
@@ -60,14 +59,13 @@ function Chat() {
       });
     });
     socket.on(SocketEmits.UserLeft, (user: User) => {
+      if (user.name === "") {
+        return;
+      }
       dispatch({
         type: UsersActionTypes.DELETE_USER,
         payload: user.id
       });
-
-      if (user.name === "") {
-        return;
-      }
       dispatch({
         type: MessageActionTypes.ADD_MESSAGE,
         payload: {

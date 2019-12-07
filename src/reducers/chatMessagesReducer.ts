@@ -5,17 +5,16 @@ export const messageReducer = (
   messagesList: ChatMessage[],
   messageAction: any
 ) => {
-  console.log("messageReducer");
   switch (messageAction.type) {
     case MessageActionTypes.ADD_MESSAGE:
       if (
         messageAction.payload === undefined ||
         messageAction.payload.message === ""
       ) {
-        return [...messagesList];
+        return messagesList;
       }
       return [...messagesList, messageAction.payload];
     default:
-      return [...messagesList];
+      return messagesList;
   }
 };

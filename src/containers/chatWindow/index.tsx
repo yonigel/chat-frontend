@@ -10,7 +10,6 @@ interface Props {
 
 function ChatWindow(props: Props) {
   const [{ connectedUsers, chatMessages }, dispatch] = useStateValue();
-  console.log(chatMessages);
   const { username } = props;
   const lastRowRef: RefObject<any> = React.createRef();
   useEffect(() => {
