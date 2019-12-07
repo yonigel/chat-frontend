@@ -20,8 +20,11 @@
       background-color: #000000c2;
       display: inline-block;
       background-image: url("../../assets/avatars/avatar1.png");
+      background-position: center;
       background-repeat: no-repeat;
-      background-size: auto;
+      background-size: cover;
+      // background-repeat: no-repeat;
+      // background-size: auto;
     }
     .username {
       display: inline-block;
