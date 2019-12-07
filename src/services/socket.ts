@@ -6,7 +6,8 @@ let socket: any;
 export enum SocketEmits {
   ChatMessage = "chat message",
   UserJoined = "user join",
-  UserLeft = "user left"
+  UserLeft = "user left",
+  GotUserList = "got users list"
 }
 
 export function initSocket(username: string) {
@@ -16,15 +17,6 @@ export function initSocket(username: string) {
   });
 
   return socket;
-  //   socket.on(SocketEmits.ChatMessage, (msg: string) => {
-  //     onMessageCallback(msg);
-  //   });
-}
-
-export function onSocketMessageReceived(callback: Function) {
-  socket.on(SocketEmits.ChatMessage, (msg: ChatMessage) => {
-    callback(msg);
-  });
 }
 
 export function onSocketUserJoined(callback: Function) {

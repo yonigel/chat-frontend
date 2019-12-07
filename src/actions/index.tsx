@@ -7,5 +7,6 @@ export enum MessageActionTypes {
 export enum UsersActionTypes {
   ADD_USER = "ADD_USER",
   DELETE_USER = "DELETE_USER",
-  UPDATE_USER = "UPDATE_USER"
+  UPDATE_USER = "UPDATE_USER",
+  SET_USERS_LIST = "SET_USERS_LIST"
 }

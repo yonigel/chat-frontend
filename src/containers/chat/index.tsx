@@ -42,6 +42,17 @@ function Chat() {
         payload: msg
       });
     });
+    socket.on(SocketEmits.GotUserList, (usersList: User[]) => {
+      console.log(`got users`, usersList);
+      if (usersList.length === 0) {
+        return;
+      }
+
+      dispatch({
+        type: UsersActionTypes.SET_USERS_LIST,
+        payload: usersList
+      });
+    });
     socket.on(SocketEmits.UserJoined, (user: User) => {
       if (user.name === "") {
         return;

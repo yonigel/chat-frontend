@@ -16,6 +16,11 @@ export const usersReducer = (usersList: User[], action: any) => {
         (user: User) => user.id !== action.payload
       );
       return [...newUsersList];
+    case UsersActionTypes.SET_USERS_LIST:
+      if (action.payload === undefined) {
+        return usersList;
+      }
+      return action.payload;
     default:
       return usersList;
   }
