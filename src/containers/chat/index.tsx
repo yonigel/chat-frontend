@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useStateValue } from "../../state";
 import { useState, useReducer, useEffect } from "react";
 import "./styles.scss";
 import ChatWindow from "../chatWindow";
@@ -10,8 +11,7 @@ import {
   sendSocketMessage,
   SocketEmits
 } from "../../services/socket";
-import { MessageActionTypes, UsersActionTypes } from "../../consts/actionTypes";
-import { messageReducer, usersReducer } from "../../services/reducers";
+import { MessageActionTypes, UsersActionTypes } from "../../actions";
 import { User } from "../../components/usersList";
 import { BOT_NAME } from "../../consts/chat";
 
@@ -24,11 +24,9 @@ function Chat() {
   let socket: any;
   const [isUserLoggedIn, setUserLoggedStatus] = useState(false);
   const [username, setUsername] = useState("");
-  const [messagesList, setMessageList] = useReducer(messageReducer, []);
-  const [newMessage, setNewMessage] = useState({ username: "", message: "" });
-  const [usersList, setUsersList] = useReducer(usersReducer, []);
-  const [newUser, setNewUser] = useState({ name: "", id: -1 });
   const [removedUser, serRemovedUser] = useState({ id: -1 });
+
+  const [{}, dispatch] = useStateValue();
 
   useEffect(() => {
     socket = initSocket(username);
@@ -39,45 +37,44 @@ function Chat() {
       return;
     }
     socket.on(SocketEmits.ChatMessage, (msg: any) => {
-      setNewMessage(msg);
+      dispatch({
+        type: MessageActionTypes.ADD_MESSAGE,
+        payload: msg
+      });
     });
     socket.on(SocketEmits.UserJoined, (user: User) => {
-      setNewUser(user);
-      console.log(`user ${user.id} joined`);
+      if (user.name === "") {
+        return;
+      }
+      dispatch({
+        type: UsersActionTypes.ADD_USER,
+        payload: user
+      });
+      dispatch({
+        type: MessageActionTypes.ADD_MESSAGE,
+        payload: {
+          username: BOT_NAME,
+          message: `User ${user.name} has joined!`
+        }
+      });
     });
-    socket.on(SocketEmits.UserLeft, (userId: number) => {
-      console.log(`user id ${userId} has left`);
-      serRemovedUser({ id: userId });
+    socket.on(SocketEmits.UserLeft, (user: User) => {
+      if (user.name === "") {
+        return;
+      }
+      dispatch({
+        type: UsersActionTypes.DELETE_USER,
+        payload: user.id
+      });
+      dispatch({
+        type: MessageActionTypes.ADD_MESSAGE,
+        payload: {
+          username: BOT_NAME,
+          message: `User ${user.name} has just left the room :(`
+        }
+      });
     });
   }, []);
-
-  useEffect(() => {
-    setMessageList({
-      type: MessageActionTypes.Add,
-      payload: { username: newMessage.username, message: newMessage.message }
-    });
-  }, [newMessage]);
-
-  useEffect(() => {
-    setUsersList({
-      type: UsersActionTypes.Remove,
-      payload: removedUser
-    });
-  }, [removedUser]);
-
-  useEffect(() => {
-    if (newUser.name === "" || newUser.name === username) {
-      return;
-    }
-    setUsersList({
-      type: UsersActionTypes.Add,
-      payload: { name: newUser.name, id: newUser.id }
-    });
-    setNewMessage({
-      username: BOT_NAME,
-      message: `User ${newUser.name} has joined!`
-    });
-  }, [newUser]);
 
   const onUserLogin = (username: string) => {
     setUsername(username);
@@ -93,10 +90,10 @@ function Chat() {
       <div className={"chat"}>
         <div className={"firstRow"}>
           <div className={"users"}>
-            <UsersWindow usersList={usersList} />
+            <UsersWindow />
           </div>
           <div className={"chatWindow"}>
-            <ChatWindow username={username} messageList={messagesList} />
+            <ChatWindow username={username} />
           </div>
         </div>
         <div className={"secondRow"}>

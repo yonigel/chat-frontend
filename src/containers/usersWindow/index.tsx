@@ -1,18 +1,15 @@
 import * as React from "react";
 import "./styles.scss";
 import UsersList, { User } from "../../components/usersList";
+import { useStateValue } from "../../state";
 
-interface Props {
-  usersList: User[];
-}
-
-function UsersWindow(props: Props) {
-  const { usersList } = props;
+function UsersWindow() {
+  const [{ connectedUsers }, dispatch] = useStateValue();
   return (
     <div className={"usersWindowContainer"}>
       <div className={"usersTitle"}>Who is here?</div>
       <div className={"usersList"}>
-        <UsersList usersList={usersList} />
+        <UsersList usersList={connectedUsers} />
       </div>
     </div>
   );

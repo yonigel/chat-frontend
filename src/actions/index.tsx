@@ -1,0 +1,11 @@
+export enum MessageActionTypes {
+  ADD_MESSAGE = "ADD_MESSAGE",
+  DELETE_MESSAGE = "ADD_MESSAGE",
+  UPDATE_MESSAGE = "UPDATE_MESSAGE"
+}
+
+export enum UsersActionTypes {
+  ADD_USER = "ADD_USER",
+  DELETE_USER = "DELETE_USER",
+  UPDATE_USER = "UPDATE_USER"
+}

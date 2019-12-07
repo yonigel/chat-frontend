@@ -2,14 +2,15 @@ import * as React from "react";
 import "./styles.scss";
 import { ChatMessage } from "../chat";
 import { RefObject, useEffect } from "react";
+import { useStateValue } from "../../state";
 
 interface Props {
   username: string;
-  messageList: ChatMessage[];
 }
 
 function ChatWindow(props: Props) {
-  const { username, messageList } = props;
+  const [{ connectedUsers, chatMessages }, dispatch] = useStateValue();
+  const { username } = props;
   const lastRowRef: RefObject<any> = React.createRef();
   useEffect(() => {
     lastRowRef.current.scrollIntoView();
@@ -25,7 +26,7 @@ function ChatWindow(props: Props) {
   return (
     <div className={"chatWindowContainer"}>
       <div className={"chatMessages"}>
-        {messageList.map((message: ChatMessage, index: number) => {
+        {chatMessages.map((message: ChatMessage, index: number) => {
           return (
             <div key={index} className={"singleChatRow"}>
               <div className={"username"}>
