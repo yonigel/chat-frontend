@@ -29,10 +29,12 @@ function ChatWindow(props: Props) {
         {chatMessages.map((message: ChatMessage, index: number) => {
           return (
             <div key={index} className={"singleChatRow"}>
-              <div className={"username"}>
-                {getUsernameFormat(message.username)}
+              <div className={"messagePopup"}>
+                <div className={"username"}>
+                  {getUsernameFormat(message.username)}
+                </div>
+                <div className={"message"}>{message.message}</div>
               </div>
-              <div className={"message"}>{message.message}</div>
             </div>
           );
         })}

@@ -117,12 +117,17 @@ function Chat() {
           <div className={"chatWindow"}>
             <ChatWindow username={username} />
           </div>
+          <div className={"messageContainer"}>
+            <div className={"messageBox"}>
+              <MessageBox onMessageSend={onMessageSend} />
+            </div>
+          </div>
         </div>
-        <div className={"secondRow"}>
+        {/* <div className={"messageContainer"}>
           <div className={"messageBox"}>
             <MessageBox onMessageSend={onMessageSend} />
           </div>
-        </div>
+        </div> */}
       </div>
     );
   };

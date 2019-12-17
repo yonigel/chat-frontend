@@ -41,28 +41,46 @@
     border-radius: 15px;
     .firstRow {
       display: flex;
-      flex-direction: row;
-      height: 90%;
+      flex-direction: column;
+      height: 100%;
 
       .users {
         background-color: #557a95;
-        width: 20%;
+        // width: 20%;
+        height: 15%;
         padding: 10px;
+        background: linear-gradient(
+          78deg,
+          rgba(2, 0, 36, 0.3) 0%,
+          rgba(6, 84, 170, 0.4) 20%,
+          rgba(9, 9, 121, 0.5) 58%,
+          rgba(0, 212, 255, 0.8) 100%
+        );
       }
       .chatWindow {
-        width: 80%;
+        // width: 80%;
+        height: 70%;
         background-color: #dcdcdc;
+      }
+      .messageContainer {
+        background-color: #b0a295;
+        height: 15%;
+        display: flex;
+        .messageBox {
+          width: 100%;
+          margin: auto;
+        }
       }
     }
 
-    .secondRow {
-      background-color: #b0a295;
-      height: 10%;
-      display: flex;
-      .messageBox {
-        width: 100%;
-        margin: auto;
-      }
-    }
+    // .messageContainer {
+    //   background-color: #b0a295;
+    //   height: 10%;
+    //   display: flex;
+    //   .messageBox {
+    //     width: 100%;
+    //     margin: auto;
+    //   }
+    // }
   }
 }
