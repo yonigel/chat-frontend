@@ -11,7 +11,3 @@ export enum UsersActionTypes {
   SET_USERS_LIST = "SET_USERS_LIST",
   SET_USER_REF = "SET_USER_REF"
 }
-
-export enum AppActionsTypes {
-  SET_APP_STATE = "SET_APP_STATE"
-}
