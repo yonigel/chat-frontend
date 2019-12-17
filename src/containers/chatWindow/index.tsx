@@ -21,6 +21,10 @@ function ChatWindow(props: Props) {
     lastRowRef.current.scrollIntoView();
   });
 
+  useEffect(() => {
+    // console.log(connectedUsers);
+  }, [connectedUsers]);
+
   const getUsernameFormat = (messageUsername: string) => {
     const isMyUsername = username === messageUsername;
     const regularUsernameformat = `${messageUsername} says:`;
@@ -38,6 +42,9 @@ function ChatWindow(props: Props) {
             user.ref.current &&
             user.ref.current.offsetLeft &&
             `${user.ref.current.offsetLeft + 22}px`;
+          console.log(
+            `chat window - user ${user.name} has offset of ${offsetForUser}`
+          );
           return (
             <div
               className={"usersOffsetGrid"}
@@ -50,16 +57,27 @@ function ChatWindow(props: Props) {
             (user: User) => user.name === message.username
           );
           let reference: any = 0;
-          console.log(`message from user`, sentMessageUser);
+          let offsetForUser: any = 0;
           if (sentMessageUser !== undefined) {
             reference =
               sentMessageUser.leftOffset &&
               `${sentMessageUser.leftOffset + 22}px`;
+
+            offsetForUser =
+              sentMessageUser.ref &&
+              sentMessageUser.ref.current &&
+              sentMessageUser.ref.current.offsetLeft &&
+              `${sentMessageUser.ref.current.offsetLeft}px`;
+            console.log(
+              `found message from user ${sentMessageUser.name}, its offset is ${offsetForUser}`
+            );
           }
-          console.log(`reference is`, reference);
           return (
             <div key={index} className={"singleChatRow"}>
-              <div className={"messagePopup"} style={{ marginLeft: reference }}>
+              <div
+                className={"messagePopup"}
+                style={{ marginLeft: offsetForUser }}
+              >
                 <div className={"username"}>
                   {getUsernameFormat(message.username)}
                 </div>
