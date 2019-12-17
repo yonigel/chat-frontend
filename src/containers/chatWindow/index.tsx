@@ -34,13 +34,11 @@ function ChatWindow(props: Props) {
           const offsetForUser =
             user?.ref?.current?.offsetLeft &&
             `${user.ref.current.offsetLeft + USER_DEFAULT_LEFT_OFFSET}px`;
-          console.log(
-            `chat window - user ${user.name} has offset of ${offsetForUser}`
-          );
           return (
             <div
               className={"usersOffsetGrid"}
               style={{ left: offsetForUser }}
+              key={user.id}
             ></div>
           );
         })}
