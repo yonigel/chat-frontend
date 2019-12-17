@@ -8,8 +8,7 @@ import { mainReducer, MainState } from "./reducers";
 
 export const initialState: MainState = {
   connectedUsers: [],
-  chatMessages: [],
-  isAppReady: false
+  chatMessages: []
 };
 
 var mountNode = document.getElementById("app");

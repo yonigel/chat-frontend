@@ -5,7 +5,6 @@ export interface User {
   name: string;
   id: any;
   ref: any;
-  leftOffset: number;
 }
 
 interface Props {

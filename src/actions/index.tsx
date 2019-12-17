@@ -9,8 +9,7 @@ export enum UsersActionTypes {
   DELETE_USER = "DELETE_USER",
   UPDATE_USER = "UPDATE_USER",
   SET_USERS_LIST = "SET_USERS_LIST",
-  SET_USER_REF = "SET_USER_REF",
-  SET_USER_LEFT_OFFSET = "SET_USER_LEFT_OFFSET"
+  SET_USER_REF = "SET_USER_REF"
 }
 
 export enum AppActionsTypes {

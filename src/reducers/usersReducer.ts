@@ -36,18 +36,6 @@ export const usersReducer = (usersList: User[], action: any) => {
       });
       return newUsersList;
     }
-    case UsersActionTypes.SET_USER_LEFT_OFFSET: {
-      if (action.payload === undefined) {
-        return;
-      }
-      const newUsersList: User[] = usersList.map((user: User) => {
-        if (user.id === action.payload.id) {
-          user.leftOffset = action.payload.leftOffset;
-        }
-        return user;
-      });
-      return newUsersList;
-    }
     default:
       return usersList;
   }

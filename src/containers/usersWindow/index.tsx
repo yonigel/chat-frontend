@@ -2,7 +2,7 @@ import * as React from "react";
 import "./styles.scss";
 import UsersList, { User } from "../../components/usersList";
 import { useStateValue } from "../../state";
-import { UsersActionTypes, AppActionsTypes } from "../../actions";
+import { UsersActionTypes } from "../../actions";
 
 const refs: any = [];
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 function UsersWindow(props: Props) {
-  const [{ connectedUsers, isAppReady }, dispatch] = useStateValue();
+  const [{ connectedUsers }, dispatch] = useStateValue();
   const { username } = props;
 
   React.useEffect(() => {
@@ -32,25 +32,6 @@ function UsersWindow(props: Props) {
       }
     });
   }, [connectedUsers]);
-
-  React.useEffect(() => {
-    connectedUsers.map((user: User) => {
-      if (
-        user.ref &&
-        user.ref.current !== undefined &&
-        user.ref.current !== null &&
-        user.leftOffset === undefined
-      ) {
-        dispatch({
-          type: UsersActionTypes.SET_USER_LEFT_OFFSET,
-          payload: {
-            id: user.id,
-            leftOffset: user.ref.current.offsetLeft
-          }
-        });
-      }
-    });
-  });
 
   return (
     <div className={"usersWindowContainer"}>
