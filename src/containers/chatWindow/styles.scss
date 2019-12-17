@@ -4,15 +4,12 @@
   position: relative;
 
   .usersOffsetGrid {
-    border-right: 1px dashed rgba(0, 0, 0, 0.7);
+    border-right: 1px dashed rgba(0, 0, 0, 0.3);
     width: 1px;
     color: transparent;
-    /* height: 100%; */
     display: inline;
     position: absolute;
-    /* top: 0; */
     z-index: 8;
-    height: 50px;
     height: 100%;
   }
 
@@ -34,7 +31,7 @@
         padding: 10px;
         border-radius: 14px;
         color: #e1e1e1;
-        // position: absolute;
+
         .username {
           display: inline-block;
           font-size: 0.8em;
