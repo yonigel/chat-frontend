@@ -1,25 +1,19 @@
 .chatWindowContainer {
   height: 100%;
+  z-index: 2;
   position: relative;
 
-  &:after {
-    content: " ";
-    display: block;
+  .usersOffsetGrid {
+    border-right: 1px dashed rgba(0, 0, 0, 0.7);
+    width: 1px;
+    color: transparent;
+    /* height: 100%; */
+    display: inline;
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
+    /* top: 0; */
+    z-index: 8;
+    height: 50px;
     height: 100%;
-    z-index: -1;
-    opacity: 0.3;
-    background-image: url("../../assets/backgrounds/sheeps.jpg");
-    background-repeat: no-repeat;
-    background-position: 50% 0;
-    -ms-background-size: cover;
-    -o-background-size: cover;
-    -moz-background-size: cover;
-    -webkit-background-size: cover;
-    background-size: cover;
   }
 
   .chatMessages {
@@ -30,21 +24,17 @@
     overflow: scroll;
     padding: 20px;
     .singleChatRow {
+      z-index: 2;
       padding: 8px;
-      // &:nth-child(even) {
-      //   background-color: rgba(210, 210, 210, 0.5);
-      // }
-      // &:nth-child(odd) {
-      //   background-color: rgba(255, 255, 255, 0.5);
-      // }
+      position: relative;
 
       .messagePopup {
-        background-color: rgba(45, 45, 45, 0.9);
+        background-color: rgba(45, 45, 45, 0.3);
         display: inline;
         padding: 10px;
         border-radius: 14px;
         color: #e1e1e1;
-
+        // position: absolute;
         .username {
           display: inline-block;
           font-size: 0.8em;

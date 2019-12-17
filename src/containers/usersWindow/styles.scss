@@ -1,8 +1,8 @@
 .usersWindowContainer {
-  max-height: 100%;
-  overflow: scroll;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 2px;
+
+  box-shadow: 0px 0px 8px #5c5c5c;
 
   .usersTitle {
   }
@@ -26,9 +26,10 @@
           background-position: center;
           background-repeat: no-repeat;
           background-size: cover;
+          border: 2px solid #fefefe;
         }
         .username {
-          font-size: 1em;
+          font-size: 0.8em;
           text-align: center;
         }
       }

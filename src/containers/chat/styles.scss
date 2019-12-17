@@ -5,28 +5,8 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-
   z-index: 2;
 
-  // &:before {
-  //   content: " ";
-  //   display: block;
-  //   position: absolute;
-  //   left: 0;
-  //   top: 0;
-  //   width: 100%;
-  //   height: 100%;
-  //   z-index: 1;
-  //   opacity: 0.6;
-  //   background-image: url("../../assets/backgrounds/mainChatBackground2.jpg");
-  //   background-repeat: no-repeat;
-  //   background-position: 50% 0;
-  //   -ms-background-size: cover;
-  //   -o-background-size: cover;
-  //   -moz-background-size: cover;
-  //   -webkit-background-size: cover;
-  //   background-size: cover;
-  // }
   .chat {
     z-index: 2;
     height: 80%;
@@ -39,48 +19,40 @@
     justify-content: space-between;
     overflow: hidden;
     border-radius: 15px;
+    box-shadow: 0px 0px 20px #222222;
     .firstRow {
       display: flex;
       flex-direction: column;
       height: 100%;
+      display: relative;
+
+      position: relative;
+
+      z-index: 1;
+      background-image: url("../../assets/backgrounds/bluredBackground.jpg");
+      background-repeat: no-repeat;
+      background-position: 50% 0;
+      -ms-background-size: cover;
+      -o-background-size: cover;
+      -moz-background-size: cover;
+      -webkit-background-size: cover;
+      background-size: cover;
 
       .users {
-        background-color: #557a95;
-        // width: 20%;
-        height: 15%;
-        padding: 10px;
-        background: linear-gradient(
-          78deg,
-          rgba(2, 0, 36, 0.3) 0%,
-          rgba(6, 84, 170, 0.4) 20%,
-          rgba(9, 9, 121, 0.5) 58%,
-          rgba(0, 212, 255, 0.8) 100%
-        );
+        height: 10%;
       }
       .chatWindow {
-        // width: 80%;
-        height: 70%;
-        background-color: #dcdcdc;
+        height: 80%;
       }
       .messageContainer {
-        background-color: #b0a295;
-        height: 15%;
+        height: 10%;
         display: flex;
         .messageBox {
+          z-index: 2;
           width: 100%;
           margin: auto;
         }
       }
     }
-
-    // .messageContainer {
-    //   background-color: #b0a295;
-    //   height: 10%;
-    //   display: flex;
-    //   .messageBox {
-    //     width: 100%;
-    //     margin: auto;
-    //   }
-    // }
   }
 }
