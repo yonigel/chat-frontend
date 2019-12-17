@@ -33,6 +33,25 @@ function UsersWindow(props: Props) {
     });
   }, [connectedUsers]);
 
+  React.useEffect(() => {
+    connectedUsers.map((user: User) => {
+      if (
+        user.ref &&
+        user.ref.current !== undefined &&
+        user.ref.current !== null &&
+        user.leftOffset === undefined
+      ) {
+        dispatch({
+          type: UsersActionTypes.SET_USER_LEFT_OFFSET,
+          payload: {
+            id: user.id,
+            leftOffset: user.ref.current.offsetLeft
+          }
+        });
+      }
+    });
+  });
+
   return (
     <div className={"usersWindowContainer"}>
       <div className={"usersList"}>
