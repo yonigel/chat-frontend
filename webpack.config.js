@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const config = {
   entry: ["react-hot-loader/patch", "./src/index.tsx"],
@@ -45,7 +46,10 @@ const config = {
   },
   plugins: [
     new LodashModuleReplacementPlugin(),
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/)
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+    new HtmlWebpackPlugin({
+      template: "index.html"
+    })
   ]
 };
 

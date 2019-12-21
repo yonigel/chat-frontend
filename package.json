@@ -1,7 +1,7 @@
 {
-  "name": "empty-project",
+  "name": "q",
   "version": "1.0.0",
-  "description": "",
+  "description": "Welcome to frontend chat app!",
   "main": "index.js",
   "keywords": [],
   "author": "",
@@ -36,6 +36,7 @@
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
     "file-loader": "^4.3.0",
+    "html-webpack-plugin": "^3.2.0",
     "lodash-webpack-plugin": "^0.11.5",
     "node-sass": "^4.13.0",
     "prettier": "^1.19.1",
@@ -46,5 +47,13 @@
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yonigel/chat-frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yonigel/chat-frontend/issues"
+  },
+  "homepage": "https://github.com/yonigel/chat-frontend#readme"
 }
