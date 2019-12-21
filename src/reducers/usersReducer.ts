@@ -8,7 +8,7 @@ export const usersReducer = (usersList: User[], action: any) => {
         return usersList;
       }
       return [...usersList, action.payload];
-    case UsersActionTypes.DELETE_USER:
+    case UsersActionTypes.DELETE_USER: {
       if (action.payload === undefined) {
         return usersList;
       }
@@ -16,11 +16,38 @@ export const usersReducer = (usersList: User[], action: any) => {
         (user: User) => user.id !== action.payload
       );
       return [...newUsersList];
+    }
+
     case UsersActionTypes.SET_USERS_LIST:
       if (action.payload === undefined) {
         return usersList;
       }
       return action.payload;
+
+    case UsersActionTypes.SET_USER_REF: {
+      if (action.payload === undefined) {
+        return usersList;
+      }
+      const newUsersList: User[] = usersList.map((user: User) => {
+        if (user.id === action.payload.id) {
+          user.ref = action.payload.ref;
+        }
+        return user;
+      });
+      return newUsersList;
+    }
+    case UsersActionTypes.SET_USER_LEFT_OFFSET: {
+      if (action.payload === undefined) {
+        return;
+      }
+      const newUsersList: User[] = usersList.map((user: User) => {
+        if (user.id === action.payload.id) {
+          user.leftOffset = action.payload.leftOffset;
+        }
+        return user;
+      });
+      return newUsersList;
+    }
     default:
       return usersList;
   }

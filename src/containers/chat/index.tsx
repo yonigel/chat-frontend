@@ -112,15 +112,15 @@ function Chat() {
       <div className={"chat"}>
         <div className={"firstRow"}>
           <div className={"users"}>
-            <UsersWindow />
+            <UsersWindow username={username} />
           </div>
           <div className={"chatWindow"}>
             <ChatWindow username={username} />
           </div>
-        </div>
-        <div className={"secondRow"}>
-          <div className={"messageBox"}>
-            <MessageBox onMessageSend={onMessageSend} />
+          <div className={"messageContainer"}>
+            <div className={"messageBox"}>
+              <MessageBox onMessageSend={onMessageSend} />
+            </div>
           </div>
         </div>
       </div>
